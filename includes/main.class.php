@@ -9,7 +9,7 @@
  * ** *** *** *** *** *** */
 
 /**
- * Description of main
+ * Holds main worker classes
  *
  * @author pjztam
  */
