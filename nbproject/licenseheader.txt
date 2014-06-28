@@ -1,0 +1,7 @@
+/*** *** *** *** *** ***
+* @package ${project.name}
+* @file    ${nameAndExt} 
+* @start   ${date}
+* @author  ${user}
+* @link    attendence.team766.com
+*** *** *** *** *** *** */
