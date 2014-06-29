@@ -10,7 +10,5 @@
     require_once 'includes/db.class.php';
     require_once 'includes/main.class.php';
     $main = new main();
-    $db = new db();
-    $db->addAttendEvent($_GET['studentid'], $main->currentDate());
-    header('Location: clockin.php');
+    $main->clockInStudent($_GET['studentid']);
 ?>
