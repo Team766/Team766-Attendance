@@ -15,5 +15,5 @@ $student_id = $_POST['studentid'];
 $main = new main();
 $db = new db();
 $db->enrollStudent($student_name, $student_id);
-header('Location:clockin.php');
+$main->clockInStudent($student_id);
 ?>

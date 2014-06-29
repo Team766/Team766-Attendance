@@ -77,5 +77,4 @@ class  db {
         $config_array = include 'config.php';
         return $config_array;
     }
-
 }

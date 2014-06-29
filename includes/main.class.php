@@ -39,7 +39,7 @@ class main {
         }
         else {
             $db->addAttendEvent($_GET['studentid'], $main->currentDate());
-            header('Location: clockin.php');
+            header('Location: clockin.php?studentname=' . $this->isStudentEnrolled($student_id));
         }
        
     }
