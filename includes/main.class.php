@@ -14,5 +14,8 @@
  * @author pjztam
  */
 class main {
-    //put your code here
+    function currentDate() {
+        $mysql_date = date( 'Y-m-d H:i:s');
+        return $mysql_date;
+    }
 }
