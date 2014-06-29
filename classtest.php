@@ -45,7 +45,7 @@ if (1==0) {
 
 }
 
-if (1==1) {
+if (1==0) {
     require_once 'includes/db.class.php';
     require_once 'includes/main.class.php';
     $main = new main();
@@ -55,6 +55,12 @@ if (1==1) {
 }
 
 if (1==0) {
+    require_once 'includes/db.class.php';
+    require_once 'includes/main.class.php';
+    $main = new main();
+    $db = new db();
+    $mysql_date = date( 'Y-m-d');
+    $db->addHours(769569, 200, $mysql_date);
     
 
 }

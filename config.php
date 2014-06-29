@@ -15,6 +15,7 @@ return array(
     'mysql_password' => 'RvpyKc9Gsgh35H9p',
     'mysql_db' => 'frc-attend',
     'mysql_db_table_prefix' => 'ptolemy_',
+    'timezone' => 'America/Los_Angeles',
 );
 
 ?>
