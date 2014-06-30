@@ -15,8 +15,9 @@
  */
 class main {
     function currentDate() {
-        $mysql_date = date( 'Y-m-d H:i:s');
-        return $mysql_date;
+        $config_array = include 'config.php';               
+        $now = new DateTime($config_array['timezone']);
+        return $now->format('Y-m-d H:i:s');
     }
     function isStudentEnrolled($student_id_number){
         require_once 'includes/db.class.php';

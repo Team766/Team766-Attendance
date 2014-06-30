@@ -84,7 +84,22 @@ class  db {
             die();
         }
     }
-    function getStudentCheckIns() {
+    function getStudentCheckIns($student_id_number) {
+        
+        try {
+        $pdo_db = $this->constructPDO();
+        $stmt_to_prepare = 'SELECT * FROM ' . $this->getConfig()['mysql_db_table_prefix'] . 'attendance WHERE student_id =:student_id_from_method';
+        $stmt = $pdo_db->prepare($stmt_to_prepare);
+        $stmt->bindParam(':student_id_from_method', $student_id_number);
+        $stmt->execute();
+        $fetch_array = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt = null;
+            return $fetch_array;
+      
+        }catch (PDOException $e) {
+            echo "Error!: " . $e->getMessage() . "<br>";
+            die();
+        }
         
     }
     function constructPDO() {
