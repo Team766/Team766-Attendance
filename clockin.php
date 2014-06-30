@@ -7,12 +7,12 @@
 * @author  pjztam
 * @link    attendence.team766.com
 *** *** *** *** *** *** */
-if ( isset($_GET['studentname'])) {
-    $student_name = $_GET['studentname'];
+if ( isset($_GET['message'])) {
+    $message = $_GET['message'];
 }
 
 ?>
-<h1><?php if (isset($student_name)) echo $student_name . ' checked in'?></h1>
+<h1><?php if (isset($message)) echo '' . $message ?></h1>
 <form action='clockin_process.php' method='GET' accept-charset="UTF-8">
 <input autofocus="autofocus" type='text' name='studentid' id='studentid' />
 </form>

@@ -71,7 +71,7 @@ if (1==0) {
     echo $student->getName() . '<br>';
     echo $student->getID();
 }
-if (1==1) {
+if (1==0) {
     require_once 'includes/student.class.php';
     $student = new student(194326);
     $student->getTotalHoursWorked();
@@ -81,6 +81,10 @@ if (1==0) {
     $now = new DateTime('America/Los_Angeles');
     echo var_dump($now);
 }
-
+if (1==0) {
+    require_once 'includes/main.class.php';
+    $main = new main();
+    echo '' . $main->validateStudentIDs(769569);
+}
 
 ?>

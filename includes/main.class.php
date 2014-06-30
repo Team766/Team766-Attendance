@@ -32,16 +32,24 @@ class main {
     }
     function clockInStudent($student_id) {
         require_once 'includes/db.class.php';
-        require_once 'includes/main.class.php';
-        $main = new main();
         $db = new db();
-        if ($this->isStudentEnrolled($student_id) == false) {
+        if ($this->validateStudentIDs($student_id) == false) {
+            header('Location: clockin.php?message=ERROR%20Please%20rescan%20card');
+        }
+        else if ($this->isStudentEnrolled($student_id) == false) {
             header('Location: enroll.php');
         }
         else {
-            $db->addAttendEvent($_GET['studentid'], $main->currentDate());
-            header('Location: clockin.php?studentname=' . $this->isStudentEnrolled($student_id));
+            $db->addAttendEvent($_GET['studentid'], $this->currentDate());
+            header('Location: clockin.php?message=' . $this->isStudentEnrolled($student_id) . ' checked in');
         }
        
+    }
+    function validateStudentIDs ($student_id) {
+        $options_array = array("options"=>array("min_range"=>100000, "max_range"=>1000000));
+        if (filter_var($student_id,  FILTER_VALIDATE_INT, $options_array) == null) {
+            return false;
+        }
+        return true;
     }
 }
