@@ -8,6 +8,9 @@
 * @link    attendence.team766.com
 *** *** *** *** *** *** */
 if (1==0) {
+    
+
+if (1==0) {
     $config_array = include 'config.php';
 }
 
@@ -86,5 +89,26 @@ if (1==0) {
     $main = new main();
     echo '' . $main->validateStudentIDs(769569);
 }
+if (1==0) {
+    require_once 'includes/student.class.php';
+    $student = new student(194326);
+    echo var_dump($student->createDateArray());
+}
+}
 
+if (1==0) {
+    require_once 'includes/student.class.php';
+    $student = new student(194326);
+    $student->removeNonCheckIns();
+    echo var_dump($student->allCheckInsArray);
+    
+}
+if (1==0) {
+    require_once 'includes/student.class.php';
+    $student = new student(194326);
+    $student->createScrubbedDateArray();
+}
+if (1==1) {
+    
+}
 ?>
