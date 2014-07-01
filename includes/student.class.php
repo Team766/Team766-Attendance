@@ -23,6 +23,7 @@ class student {
         $db = new db();
         $this->student_id = $student_id_param;
         $this->allCheckInsArray = $db->getStudentCheckIns($student_id_param);
+        $this->addHoursToDB();
     }
     function createDateArray() {
         $config_array = include 'config.php';
@@ -55,7 +56,6 @@ class student {
             $hours_worked_array[$hours_worked_array_index] = array("date" => $date_array[$i]->format('Y-m-d'), "time_difference" => $time_difference);
             $hours_worked_array_index++;
         }
-        echo var_dump($hours_worked_array);
         for ($i=0; $i<count($hours_worked_array); $i++) {
            if ((isset($hours_worked_array[$i+1])) && $hours_worked_array[$i]['date'] == $hours_worked_array[$i+1]['date']) {
                $dateZero = new DateTime('00:00');
@@ -69,6 +69,20 @@ class student {
            }
         }
     return $hours_worked_array;
+    }
+    function addHoursToDB() {
+        require_once 'includes/db.class.php';
+        $db = new db();
+        $date_array = $this->createScrubbedDateArray();
+        $hours_array = $this->getSumTimeWorkedArray($date_array);
+        for ($i=0; $i<count($hours_array); $i++) {
+            $time_worked = $hours_array[$i]['time_difference']->format('%H:%I:%S');
+            $date = $hours_array[$i]['date'];
+            if (!($db->doHoursExist($this->student_id, $time_worked, $date))) {
+                $db->addHours($this->student_id, $time_worked, $date);
+            }
+            
+        }
     }
     function getDuplicateDaysKillArray($date_array) {
         $kill_array = array();

@@ -134,10 +134,25 @@ if (1==0) {
     $db->addAttendEvent(194326, '2014-01-25 09:58:01');
     $db->addAttendEvent(194326, '2014-01-25 16:14:35');
 }
-if (1==1) {
+if (1==0) {
     require_once 'includes/student.class.php';
     $student = new student(194326);
     echo var_dump($student->getSumTimeWorkedArray($student->createScrubbedDateArray()));
     
+}
+if (1==1) {
+    require_once 'includes/student.class.php';
+    $student = new student(194326);
+    $student->addHoursToDB();
+}
+if (1==0) {
+    require_once 'includes/db.class.php';
+    $db = new db();
+    $db->modifyHours(194326, '10:10:10', '2014-01-24');
+}
+if (1==0) {
+    require_once 'includes/db.class.php';
+    $db = new db();
+    echo '' . $db->doHoursExist(194326, '11:11:11', '2014-01-25');
 }
 ?>
