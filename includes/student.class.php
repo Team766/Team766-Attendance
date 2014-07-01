@@ -16,7 +16,9 @@
 class student {
 
     var $allCheckInsArray;
+    var $hoursWorkedArray;
     var $student_id;
+    var $timeWorkedSeconds;
 
     function __construct($student_id_param) {
         require_once 'includes/db.class.php';
@@ -24,6 +26,7 @@ class student {
         $this->student_id = $student_id_param;
         $this->allCheckInsArray = $db->getStudentCheckIns($student_id_param);
         $this->addHoursToDB();
+        $this->getTotalHoursWorked();
     }
 
     function createDateArray() {
@@ -61,8 +64,8 @@ class student {
         }
         for ($i = 0; $i < count($hours_worked_array); $i++) {
             if ((isset($hours_worked_array[$i + 1])) && $hours_worked_array[$i]['date'] == $hours_worked_array[$i + 1]['date']) {
-                $dateZero = new DateTime('00:00');
-                $dateZero2 = new DateTime('00:00');
+                $dateZero = new DateTime('@0');
+                $dateZero2 = new DateTime('@0');
                 $dateZero->add($hours_worked_array[$i]['time_difference']);
                 $dateZero->add($hours_worked_array[$i + 1]['time_difference']);
                 $combinedInterval = $dateZero2->diff($dateZero);
@@ -79,6 +82,7 @@ class student {
         $db = new db();
         $date_array = $this->createScrubbedDateArray();
         $hours_array = $this->getSumTimeWorkedArray($date_array);
+        $this->hoursWorkedArray = $hours_array;
         for ($i = 0; $i < count($hours_array); $i++) {
             $time_worked = $hours_array[$i]['time_difference']->format('%H:%I:%S');
             $date = $hours_array[$i]['date'];
@@ -116,7 +120,39 @@ class student {
     function getID() {
         return $this->student_id;
     }
-
+    function getHoursWorkedOnDate($date) {
+        $hours_for_retrieval = false;
+        for ($i=0; $i<count($this->hoursWorkedArray); $i++) {
+            if ($this->hoursWorkedArray[$i]['date'] == $date) {
+                $hours_for_retrieval = $this->hoursWorkedArray[$i]['time_difference']->format('%H:%I:%S');
+            }
+        }
+        return $hours_for_retrieval;
+    }
+    function getTotalHoursWorked() {       
+        $dateZeroControl = new DateTime('@0');
+        $dateZeroExp = new DateTime('@0');
+        for ($i=0; $i<count($this->hoursWorkedArray); $i++) {
+           $dateZeroExp->add($this->hoursWorkedArray[$i]['time_difference']);
+        }
+        $totalTimeDifference = $dateZeroControl->diff($dateZeroExp);
+        $totalTime = $dateZeroControl->add($totalTimeDifference)->getTimestamp();
+        $this->timeWorkedSeconds = $totalTime;
+        return $this->getHoursFromSeconds($totalTime);
+    }
+    function getHoursFromSeconds($seconds) {
+        $hours = floor($seconds / 3600);
+        $seconds = $seconds - ( 3600 * $hours );
+        $minutes = floor($seconds / 60);
+        $seconds = $seconds - ( 60 * $minutes );
+        if ($minutes < 10) {
+            $minutes = '0' . $minutes;
+        }
+        if ($seconds < 10) {
+            $seconds = '0' . $seconds;
+        }
+        echo '' . $hours . ':' . $minutes . ':' . $seconds;
+    }
     function getName() {
         require_once 'includes/db.class.php';
         $db = new db();
