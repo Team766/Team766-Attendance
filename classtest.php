@@ -1,11 +1,11 @@
 <?php
 
 /*** *** *** *** *** ***
-* @package Team766-Attendence
+* @package Team766-Attendance
 * @file    classtest.php 
 * @start   Jun 27, 2014
 * @author  pjztam
-* @link    attendence.team766.com
+* @link    Attendance.team766.com
 *** *** *** *** *** *** */
 if (1==0) {
     
@@ -94,7 +94,7 @@ if (1==0) {
     $student = new student(194326);
     echo var_dump($student->createDateArray());
 }
-}
+
 
 if (1==0) {
     require_once 'includes/student.class.php';
@@ -160,10 +160,26 @@ if (1==0) {
     $student = new student(194326);
     echo $student->getHoursWorkedOnDate('2014-01-25');
 }
-if (1==1) {
+if (1==0) {
     require_once 'includes/student.class.php';
     $student = new student(194326);
     echo var_dump($student);
     echo $student->getTotalHoursWorked();
+}
+}
+if (1==0) {
+    require_once 'includes/admin.class.php';
+    $admin = new admin();
+    echo var_dump($admin);
+}
+if (1==0) {
+    require_once 'includes/student.class.php';
+    $student = new student(135642);
+    echo var_dump($student);
+}
+if (1==1) {
+    require_once 'includes/admin.class.php';
+    $admin = new admin();
+    echo var_dump($admin->sortStudentsAndHoursArray_HighScores());
 }
 ?>

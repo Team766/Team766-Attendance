@@ -1,11 +1,11 @@
 <?php
 
 /*** *** *** *** *** ***
-* @package Team766-Attendence
+* @package Team766-Attendance
 * @file    enroll.php 
 * @start   Jun 29, 2014
 * @author  pjztam
-* @link    attendence.team766.com
+* @link    Attendance.team766.com
 *** *** *** *** *** *** */
 if ( isset($_GET['message'])) {
     $message = $_GET['message'];

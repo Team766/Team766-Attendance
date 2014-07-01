@@ -1,11 +1,11 @@
 <?php
 
 /*** *** *** *** *** ***
-* @package Team766-Attendence
+* @package Team766-Attendance
 * @file    enroll_process.php 
 * @start   Jun 29, 2014
 * @author  pjztam
-* @link    attendence.team766.com
+* @link    Attendance.team766.com
 *** *** *** *** *** *** */
 require_once 'includes/db.class.php';
 $student_name = $_POST['studentname'];

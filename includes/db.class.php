@@ -1,11 +1,11 @@
 <?php
 
 /* * * *** *** *** *** ***
- * @package Team766-Attendence
+ * @package Team766-Attendance
  * @file    db.class.php 
  * @start   Jun 27, 2014
  * @author  pjztam
- * @link    attendence.team766.com
+ * @link    Attendance.team766.com
  * ** *** *** *** *** *** */
 
 /**
@@ -93,7 +93,7 @@ class db {
             $fetch_array = $stmt->fetch(PDO::FETCH_ASSOC);
             $stmt = null;
 
-            if (!isset($fetch_array)) {
+            if ($fetch_array == false) {
                 return false;
             } else if ($fetch_array['time_worked'] == $time_worked) {
                 return true;
@@ -141,6 +141,21 @@ class db {
         }
     }
 
+    function getStudents() {
+         try {
+            $pdo_db = $this->constructPDO();
+            $stmt_to_prepare = 'SELECT * FROM ' . $this->getConfig()['mysql_db_table_prefix'] . 'members';
+            $stmt = $pdo_db->prepare($stmt_to_prepare);
+            $stmt->execute();
+            $fetch_array = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = null;
+            return $fetch_array;
+        } catch (PDOException $e) {
+            echo "Error!: " . $e->getMessage() . "<br>";
+            die();
+        }
+    }
+    
     function constructPDO() {
         $config_array = include 'config.php';
         $dsn = 'mysql:dbname=' . $config_array['mysql_db'] . ';host=' . $config_array['mysql_host'];

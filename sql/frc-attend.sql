@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `ptolemy_attendance` (
   `index` int(11) NOT NULL AUTO_INCREMENT,
   `student-id` int(11) NOT NULL,
-  `student-attendence` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `student-Attendance` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`index`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 

@@ -1,4 +1,4 @@
-Team766-Attendence
+Team766-Attendance
 ==================
 
-Basic attendence script for Team766 to track meeting attendence
+Basic Attendance script for Team766 to track meeting Attendance

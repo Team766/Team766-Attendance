@@ -1,11 +1,11 @@
 <?php
 
 /* * * *** *** *** *** ***
- * @package Team766-Attendence
+ * @package Team766-Attendance
  * @file    student.class.php 
  * @start   Jun 29, 2014
  * @author  pjztam
- * @link    attendence.team766.com
+ * @link    Attendance.team766.com
  * ** *** *** *** *** *** */
 
 /**
@@ -117,9 +117,6 @@ class student {
         return $kill_array;
     }
 
-    function getID() {
-        return $this->student_id;
-    }
     function getHoursWorkedOnDate($date) {
         $hours_for_retrieval = false;
         for ($i=0; $i<count($this->hoursWorkedArray); $i++) {
@@ -151,7 +148,7 @@ class student {
         if ($seconds < 10) {
             $seconds = '0' . $seconds;
         }
-        echo '' . $hours . ':' . $minutes . ':' . $seconds;
+        return '' . $hours . ':' . $minutes . ':' . $seconds;
     }
     function getName() {
         require_once 'includes/db.class.php';
@@ -160,10 +157,11 @@ class student {
         return $student_name;
     }
 
-    function printAll() {
-        echo 'Student ID #: ' . $this->getID() . '<br>';
-        echo 'Student Name: ' . $this->getName() . '<br>';
-        echo var_dump($this->allCheckInsArray);
+    function getID() {
+        return $this->student_id;
+    }
+    function getTotalTimeWorked() {
+        return $this->timeWorkedSeconds;
     }
 
 }
