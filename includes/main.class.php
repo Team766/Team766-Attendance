@@ -39,11 +39,12 @@ class main {
         if ($this->validateStudentIDs($student_id) == false) {
             header('Location: clockin.php?message=ERROR%20Please%20rescan%20card');
         } else if ($this->isStudentEnrolled($student_id) == false) {
-            header('Location: enroll.php');
+            header('Location: clockin.php?message=YOU%20MUST%20ENROLL%20BEFORE%20CHECKING%20IN');
         } else {
-            $db->addAttendEvent($_GET['studentid'], $this->currentDate());
-            header('Location: clockin.php?message=' . $this->isStudentEnrolled($student_id) . ' checked in');
+             $db->addAttendEvent($student_id, $this->currentDate());
+             header('Location: clockin.php?message=' . $this->isStudentEnrolled($student_id) . '%20Checked%20In');
         }
+      
     }
 
     function validateStudentIDs($student_id) {
