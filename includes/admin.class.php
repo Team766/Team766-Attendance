@@ -31,14 +31,25 @@ class admin {
         }
         return $hoursAndStudents;
     }
-    function sortStudentsAndHoursArray_HighScores() {
+    function sortStudentsAndHoursArray($sortType) {
         $allStudentsAndTimes = $this->getStudentsAndHoursArray();
         foreach ($allStudentsAndTimes as $key => $row) {
             $student_name[$key] = $row['studentID'];
             $student_id[$key] = $row['studentName'];  
             $total_seconds[$key] = $row['studentTime'];        
         }
-        array_multisort($total_seconds, SORT_DESC, $student_id, SORT_ASC, $student_name, SORT_ASC, $allStudentsAndTimes);
+        switch ($sortType) {
+            case 'sortPeopleHoursDescend':
+                    array_multisort($total_seconds, SORT_DESC, $student_id, SORT_ASC, $student_name, SORT_ASC, $allStudentsAndTimes);
+                break;
+            case 'sortPeopleNameDescend':
+                    array_multisort($student_id, SORT_ASC, $total_seconds, SORT_DESC, $student_name, SORT_ASC, $allStudentsAndTimes);
+                break;
+            case 'sortPeopleIDDescend':
+                    array_multisort($student_name, SORT_ASC, $total_seconds, SORT_DESC, $student_id, SORT_ASC,  $allStudentsAndTimes);
+                break;
+        }
+        
         return $allStudentsAndTimes;
     }
     
@@ -52,6 +63,103 @@ class admin {
         }
         return $arrayStudentObjects;
  
+    }
+    function getHoursFromSeconds($seconds) {
+        $hours = floor($seconds / 3600);
+        $seconds = $seconds - ( 3600 * $hours );
+        $minutes = floor($seconds / 60);
+        $seconds = $seconds - ( 60 * $minutes );
+        if ($minutes < 10) {
+            $minutes = '0' . $minutes;
+        }
+        if ($seconds < 10) {
+            $seconds = '0' . $seconds;
+        }
+        return '' . $hours . ':' . $minutes . ':' . $seconds;
+    }
+    function returnSortPeopleHoursDescend() {
+        $people_array = $this->sortStudentsAndHoursArray('sortPeopleHoursDescend');
+        $outputTable = '';
+        $outputTable .= '<h2 class="sub-header">Students - Sort Hours Descend</h2>
+          <div class="table-responsive">
+            <table class="table table-striped"><thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Student ID</th>
+                  <th>Hours</th>
+                </tr>
+              </thead>
+              <tbody>';
+        foreach ($people_array as $key=>$row) {
+            $timeWorkedHours = $this->getHoursFromSeconds($row['studentTime']);
+            $outputTable .= '<tr>
+                    <td>' . $key . '</td>
+                    <td>' . $row['studentName'] . '</td>
+                    <td>' . $row['studentID'] . '</td>
+                    <td>' . $timeWorkedHours . '</td>
+                </tr>';
+        }
+        $outputTable .= '</tbody>
+            </table>
+            </div>';
+        return $outputTable;
+    }
+     function returnSortPeopleIDDescend() {
+        $people_array = $this->sortStudentsAndHoursArray('sortPeopleIDDescend');
+        $outputTable = '';
+        $outputTable .= '<h2 class="sub-header">Students - Sort ID Descend</h2>
+          <div class="table-responsive">
+            <table class="table table-striped"><thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Student ID</th>
+                  <th>Hours</th>
+                </tr>
+              </thead>
+              <tbody>';
+        foreach ($people_array as $key=>$row) {
+            $timeWorkedHours = $this->getHoursFromSeconds($row['studentTime']);
+            $outputTable .= '<tr>
+                    <td>' . $key . '</td>
+                    <td>' . $row['studentName'] . '</td>
+                    <td>' . $row['studentID'] . '</td>
+                    <td>' . $timeWorkedHours . '</td>
+                </tr>';
+        }
+        $outputTable .= '</tbody>
+            </table>
+            </div>';
+        return $outputTable;
+    }
+     function returnSortPeopleNameDescend() {
+        $people_array = $this->sortStudentsAndHoursArray('sortPeopleNameDescend');
+        $outputTable = '';
+        $outputTable .= '<h2 class="sub-header">Students - Sort Names Descend</h2>
+          <div class="table-responsive">
+            <table class="table table-striped"><thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Student ID</th>
+                  <th>Hours</th>
+                </tr>
+              </thead>
+              <tbody>';
+        foreach ($people_array as $key=>$row) {
+            $timeWorkedHours = $this->getHoursFromSeconds($row['studentTime']);
+            $outputTable .= '<tr>
+                    <td>' . $key . '</td>
+                    <td>' . $row['studentName'] . '</td>
+                    <td>' . $row['studentID'] . '</td>
+                    <td>' . $timeWorkedHours . '</td>
+                </tr>';
+        }
+        $outputTable .= '</tbody>
+            </table>
+            </div>';
+        return $outputTable;
     }
     
 }

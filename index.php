@@ -2,7 +2,7 @@
 /* * * *** *** *** *** ***
  * @package Team766-Attendance
  * @file    admin.php 
- * @start   Jun 30, 2014
+ * @start   July 3, 2014
  * @author  pjztam
  * @link    Attendance.team766.com
  * ** *** *** *** *** *** */
@@ -67,46 +67,11 @@
             </div>
         </div>
 
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-3 col-md-2 sidebar">
-                    <ul class="nav nav-sidebar">
-                        <li class="active"><a href="#">Overview</a></li>
-                        <li><a href="#">Reports</a></li>
-                        <li><a href="#">Analytics</a></li>
-                        <li><a href="#">Export</a></li>
-                    </ul>
-                    <ul class="nav nav-sidebar">
-                        <li><a href="">Nav item</a></li>
-                        <li><a href="">Nav item again</a></li>
-                        <li><a href="">One more nav</a></li>
-                        <li><a href="">Another nav item</a></li>
-                        <li><a href="">More navigation</a></li>
-                    </ul>
-                    <ul class="nav nav-sidebar">
-                        <li><a href="">Nav item again</a></li>
-                        <li><a href="">One more nav</a></li>
-                        <li><a href="">Another nav item</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <h1 class="page-header">Student List</h1>
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li class="active"><a href="admin_process.php?mod=sortPeopleHoursDescend" rel="sortPeopleHoursDescend">Hours</a></li>
-                        <li><a href="admin_process.php?mod=sortPeopleIDDescend" rel="sortPeopleIDDescend">Student ID</a></li>
-                        <li><a href="admin_process.php?mod=sortPeopleNameDescend" rel="sortPeopleNameDescend">Name</a></li>
-
-                    </ul>
-                    <a href="admin_process.php?mod=sortPeopleNameDescend">CLICK HERE - Name</a><br>
-                           <a href="admin_process.php?mod=sortPeopleIDDescend">CLICK HERE ID</a><br>
-                           <a href="admin_process.php?mod=sortPeopleHoursDescend">CLICK HERE hours</a><br>
+      
 
 
 
-                </div>
-            </div>
-        </div>
-
+   
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->

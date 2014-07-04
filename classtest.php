@@ -177,9 +177,14 @@ if (1==0) {
     $student = new student(135642);
     echo var_dump($student);
 }
-if (1==1) {
+if (1==0) {
     require_once 'includes/admin.class.php';
     $admin = new admin();
     echo var_dump($admin->sortStudentsAndHoursArray_HighScores());
+}
+if (1==1) {
+    require_once 'includes/admin.class.php';
+    $admin = new admin();
+    echo $admin->returnSortPeopleNameDescend();
 }
 ?>
