@@ -69,7 +69,7 @@ class student {
                 $dateZero->add($hours_worked_array[$i]['time_difference']);
                 $dateZero->add($hours_worked_array[$i + 1]['time_difference']);
                 $combinedInterval = $dateZero2->diff($dateZero);
-                $hours_worked_array[$i]['time_difference'] = $combinedInterval;
+                $hours_worked_array[$i+1]['time_difference'] = $combinedInterval;
                 array_splice($hours_worked_array, $i, 1);
                 $i--;
             }

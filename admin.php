@@ -93,13 +93,13 @@
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     <h1 class="page-header">Student List</h1>
                     <ul class="nav nav-tabs" role="tablist">
-<li class="active"><a id="sortPeopleHoursDescend" href="#">Hours</a></li>
-	<li><a id="sortPeopleIDDescend" href="#">Student ID</a></li>
-        <li><a id="sortPeopleNameDescend" href="#">Name</a></li>
+                        <li class="active"><a id="sortPeopleHoursDescend" href="#">Hours</a></li>
+                        <li><a id="sortPeopleIDDescend" href="#">Student ID</a></li>
+                        <li><a id="sortPeopleNameDescend" href="#">Name</a></li>
 
                     </ul>
                     <div id="result" style="clear:both;"></div>
-                    
+
 
 
 
