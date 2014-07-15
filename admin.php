@@ -33,13 +33,14 @@
         <link href="dashboard.css" rel="stylesheet">
 
         <style id="holderjs-style" type="text/css"></style>
-    
-        
-        
-              <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="dist/js/bootstrap.min.js"></script>
         <script src="assets/js/docs.min.js"></script>
-    
+        <script src="ajaxLoadSort.js"></script>
+
     </head>
 
     <body>
@@ -92,14 +93,13 @@
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     <h1 class="page-header">Student List</h1>
                     <ul class="nav nav-tabs" role="tablist">
-                        <li class="active"><a href="admin_process.php?mod=sortPeopleHoursDescend" rel="sortPeopleHoursDescend">Hours</a></li>
-                        <li><a href="admin_process.php?mod=sortPeopleIDDescend" rel="sortPeopleIDDescend">Student ID</a></li>
-                        <li><a href="admin_process.php?mod=sortPeopleNameDescend" rel="sortPeopleNameDescend">Name</a></li>
+<li class="active"><a id="sortPeopleHoursDescend" href="#">Hours</a></li>
+	<li><a id="sortPeopleIDDescend" href="#">Student ID</a></li>
+        <li><a id="sortPeopleNameDescend" href="#">Name</a></li>
 
                     </ul>
-                    <a href="admin_process.php?mod=sortPeopleNameDescend">CLICK HERE - Name</a><br>
-                           <a href="admin_process.php?mod=sortPeopleIDDescend">CLICK HERE ID</a><br>
-                           <a href="admin_process.php?mod=sortPeopleHoursDescend">CLICK HERE hours</a><br>
+                    <div id="result" style="clear:both;"></div>
+                    
 
 
 
@@ -110,8 +110,8 @@
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
-  
-    
+
+
 
 
         <div id="global-zeroclipboard-html-bridge" class="global-zeroclipboard-container" style="position: absolute; left: 0px; top: -9999px; width: 15px; height: 15px; z-index: 999999999;" title="" data-original-title="Copy to clipboard">      <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" id="global-zeroclipboard-flash-bridge" width="100%" height="100%">         <param name="movie" value="/assets/flash/ZeroClipboard.swf?noCache=1404206879096">         <param name="allowScriptAccess" value="sameDomain">         <param name="scale" value="exactfit">         <param name="loop" value="false">         <param name="menu" value="false">         <param name="quality" value="best">         <param name="bgcolor" value="#ffffff">         <param name="wmode" value="transparent">         <param name="flashvars" value="trustedOrigins=getbootstrap.com%2C%2F%2Fgetbootstrap.com%2Chttp%3A%2F%2Fgetbootstrap.com">         <embed src="/assets/flash/ZeroClipboard.swf?noCache=1404206879096" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="100%" height="100%" name="global-zeroclipboard-flash-bridge" allowscriptaccess="sameDomain" allowfullscreen="false" type="application/x-shockwave-flash" wmode="transparent" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="trustedOrigins=getbootstrap.com%2C%2F%2Fgetbootstrap.com%2Chttp%3A%2F%2Fgetbootstrap.com" scale="exactfit">                </object></div></body></html>
