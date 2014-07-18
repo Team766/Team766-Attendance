@@ -80,8 +80,8 @@ class admin {
     function returnSortPeopleHoursDescend() {
         $people_array = $this->sortStudentsAndHoursArray('sortPeopleHoursDescend');
         $outputTable = '';
-        $outputTable .= '<h2 class="sub-header">Students - Sort Hours Descend</h2>
-          <div class="table-responsive">
+        $outputTable .= '<div id="sortPeopleHoursDescendTitle"><h1 class="page-header">Student List - Sort Hours</h1></div>
+          <div id="sortPeopleHoursDescend" class="table-responsive">
             <table class="table table-striped"><thead>
                 <tr>
                   <th>#</th>
@@ -93,6 +93,7 @@ class admin {
               <tbody>';
         foreach ($people_array as $key=>$row) {
             $timeWorkedHours = $this->getHoursFromSeconds($row['studentTime']);
+            $key += 1;
             $outputTable .= '<tr>
                     <td>' . $key . '</td>
                     <td>' . $row['studentName'] . '</td>
@@ -108,8 +109,8 @@ class admin {
      function returnSortPeopleIDDescend() {
         $people_array = $this->sortStudentsAndHoursArray('sortPeopleIDDescend');
         $outputTable = '';
-        $outputTable .= '<h2 class="sub-header">Students - Sort ID Descend</h2>
-          <div class="table-responsive">
+        $outputTable .= '<div id="sortPeopleIDDescendTitle"><h1 class="page-header">Student List - Sort ID</h1></div>
+          <div id="sortPeopleIDDescend" class="table-responsive">
             <table class="table table-striped"><thead>
                 <tr>
                   <th>#</th>
@@ -121,6 +122,7 @@ class admin {
               <tbody>';
         foreach ($people_array as $key=>$row) {
             $timeWorkedHours = $this->getHoursFromSeconds($row['studentTime']);
+            $key += 1;
             $outputTable .= '<tr>
                     <td>' . $key . '</td>
                     <td>' . $row['studentName'] . '</td>
@@ -136,8 +138,8 @@ class admin {
      function returnSortPeopleNameDescend() {
         $people_array = $this->sortStudentsAndHoursArray('sortPeopleNameDescend');
         $outputTable = '';
-        $outputTable .= '<h2 class="sub-header">Students - Sort Names Descend</h2>
-          <div class="table-responsive">
+        $outputTable .= '<div id="sortPeopleNameDescendTitle"><h1 class="page-header">Student List - Sort Name</h1></div>
+          <div id="sortPeopleNameDescend" class="table-responsive">
             <table class="table table-striped"><thead>
                 <tr>
                   <th>#</th>
@@ -149,6 +151,7 @@ class admin {
               <tbody>';
         foreach ($people_array as $key=>$row) {
             $timeWorkedHours = $this->getHoursFromSeconds($row['studentTime']);
+            $key += 1;
             $outputTable .= '<tr>
                     <td>' . $key . '</td>
                     <td>' . $row['studentName'] . '</td>
