@@ -7,11 +7,7 @@
 * @author  pjztam
 * @link    Attendance.team766.com
 *** *** *** *** *** *** */
-if ( isset($_GET['message'])) {
-    $message = $_GET['message'];
-}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en"><head>
@@ -26,6 +22,7 @@ if ( isset($_GET['message'])) {
 
         <!-- Bootstrap core CSS -->
         <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="signin.css" rel="stylesheet">
 
         <!-- Custom styles for this template -->
         <link href="dashboard.css" rel="stylesheet">
@@ -65,14 +62,30 @@ if ( isset($_GET['message'])) {
             </div>
         </div>
         
-        <h1><?php if (isset($message)) echo '' . $message ?></h1>
-<form action='enroll_process.php' method='POST' accept-charset="UTF-8">
-    Student ID:<input type='text' name='studentid' id='studentid' /><br>
-    Student Name<input type='text' name='studentname' id='studentname' /><br>
-    <input type="submit">
-</form>
+        <form id='enrollform' class='form-signin' role='form' action='clockin_process.php' method='POST' accept-charset="UTF-8">
+            <div id="result"></div>
+            <h2>Enroll Student</h2>
+            <input type='text' class="form-control" placeholder="Name" autofocus="autofocus" name='studentname' id='studentname' />
+            <input type='text' class="form-control" placeholder="ID Number" name='studentid' id='studentid' />
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Enroll</button>
+        </form>
 
-      
+      <script>
+            $("#enrollform").submit(function(event) {
+
+                event.preventDefault();
+
+                 var $form = $( this ),
+                    studentid = $form.find( "input[name='studentid']" ).val();
+                    studentname = $form.find( "input[name='studentname']" ).val();
+                var posting = $.post("enroll_process.php", {studentidjs: studentid, studentnamejs: studentname});
+
+                posting.done(function(data) {
+                    $("#result").empty().append(data);
+                });
+                $('#enrollform')[0].reset();
+            });
+        </script>
 
 
 

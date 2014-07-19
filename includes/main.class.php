@@ -23,8 +23,6 @@ class main {
 
     function isStudentEnrolled($student_id_number) {
         require_once 'includes/db.class.php';
-        require_once 'includes/main.class.php';
-        $main = new main();
         $db = new db();
         $student_name = $db->getStudent($student_id_number);
         if ($student_name == false) {
@@ -37,14 +35,28 @@ class main {
         require_once 'includes/db.class.php';
         $db = new db();
         if ($this->validateStudentIDs($student_id) == false) {
-            header('Location: clockin.php?message=ERROR%20Please%20rescan%20card');
+            $output = '' . ' 
+            <div class="alert alert-danger" role="alert">
+                <strong>Warning!</strong> Please rescan ID Card
+            </div>
+                ';
+            echo $output;
         } else if ($this->isStudentEnrolled($student_id) == false) {
-            header('Location: clockin.php?message=YOU%20MUST%20ENROLL%20BEFORE%20CHECKING%20IN');
+            $output = '' . ' 
+            <div class="alert alert-danger" role="alert">
+                <strong>Warning!</strong> You must enroll before checking in
+            </div>
+                ';
+            echo $output;
         } else {
-             $db->addAttendEvent($student_id, $this->currentDate());
-             header('Location: clockin.php?message=' . $this->isStudentEnrolled($student_id) . '%20Checked%20In');
+            $db->addAttendEvent($student_id, $this->currentDate());
+            $output = '' . ' 
+            <div class="alert alert-success" role="alert">
+                <strong>Success!</strong> ' . $this->isStudentEnrolled($student_id) . ' Checked In
+            </div>
+                ';
+            echo $output;
         }
-      
     }
 
     function validateStudentIDs($student_id) {
@@ -53,6 +65,36 @@ class main {
             return false;
         }
         return true;
+    }
+    function validateEnrollment($student_id, $student_name) {
+        if ($student_name == null) {
+            return '<div class="alert alert-danger" role="alert"><strong>Warning!</strong> Enter a Name</div>';
+        }
+        else if ($student_id == null) {
+            return '<div class="alert alert-danger" role="alert"><strong>Warning!</strong> Enter a Student ID</div>';
+        }     
+        else if ($this->validateStudentIDs($student_id) == false) {
+            return '<div class="alert alert-danger" role="alert"><strong>Warning!</strong> That is not a valid Student ID number</div>';
+        }
+        else if ($this->isStudentEnrolled($student_id) != false) {
+            $output = '<div class="alert alert-danger" role="alert"><strong>Warning!</strong> ' . $this->isStudentEnrolled($student_id) . ' is already enrolled';
+            return $output;
+        }
+        if (!($student_name == null) && !($student_id == null) && !(($this->validateStudentIDs($student_id)) == false) && !($this->isStudentEnrolled($student_id) != false) ){
+            return 'success';
+        }
+    }
+    function enrollStudent($student_id, $student_name) {
+        require_once 'includes/db.class.php';
+        $db = new db();
+        $formValidate = $this->validateEnrollment($student_id, $student_name);
+        if ($formValidate == 'success') {
+            $db->enrollStudent($student_name, $student_id, $this->currentDate());
+            echo '<div class="alert alert-success" role="alert"><strong>Success!</strong> ' . $student_name . ' enrolled</div>';
+        }
+        else {
+            echo $formValidate;
+        }
     }
 
 }

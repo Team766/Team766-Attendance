@@ -30,15 +30,16 @@ class db {
         }
     }
 
-    function enrollStudent($student_name, $student_id_number) {
+    function enrollStudent($student_name, $student_id_number, $student_register_date) {
 
 
         try {
             $pdo_db = $this->constructPDO();
-            $stmt_to_prepare = "INSERT INTO " . $this->getConfig()['mysql_db_table_prefix'] . "members (student_id, student_name) VALUES (:student_id_number, :student_name)";
+            $stmt_to_prepare = "INSERT INTO " . $this->getConfig()['mysql_db_table_prefix'] . "members (student_id, student_name, student_date_registered) VALUES (:student_id_number, :student_name, :student_date_registered)";
             $stmt = $pdo_db->prepare($stmt_to_prepare);
             $stmt->bindParam(':student_id_number', $student_id_number);
             $stmt->bindParam(':student_name', $student_name);
+            $stmt->bindParam(':student_date_registered', $student_register_date);
             $stmt->execute();
             $stmt = null;
         } catch (PDOException $e) {

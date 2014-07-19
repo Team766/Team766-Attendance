@@ -1,18 +1,12 @@
 <?php
-
-/*** *** *** *** *** ***
-* @package Team766-Attendance
-* @file    clockin.php 
-* @start   Jun 29, 2014
-* @author  pjztam
-* @link    Attendance.team766.com
-*** *** *** *** *** *** */
-if ( isset($_GET['message'])) {
-    $message = $_GET['message'];
-}
-
+/* * * *** *** *** *** ***
+ * @package Team766-Attendance
+ * @file    clockin.php 
+ * @start   Jun 29, 2014
+ * @author  pjztam
+ * @link    Attendance.team766.com
+ * ** *** *** *** *** *** */
 ?>
-
 
 
 <!DOCTYPE html>
@@ -24,22 +18,27 @@ if ( isset($_GET['message'])) {
         <meta name="author" content="">
         <link rel="icon" href="favicon.ico">
 
-        <title>Team766 - Enroll</title>
+        <title>Team766 - Check In</title>
 
         <!-- Bootstrap core CSS -->
         <link href="dist/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Custom styles for this template -->
         <link href="dashboard.css" rel="stylesheet">
+        <link href="signin.css" rel="stylesheet">
 
         <style id="holderjs-style" type="text/css"></style>
-    
-        
-        
-              <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="dist/js/bootstrap.min.js"></script>
         <script src="assets/js/docs.min.js"></script>
-    
+
+
+
+
+
     </head>
 
     <body>
@@ -66,22 +65,41 @@ if ( isset($_GET['message'])) {
                 </div>
             </div>
         </div>
-        <h1><?php if (isset($message)) echo '' . $message ?></h1>
-<form action='clockin_process.php' method='GET' accept-charset="UTF-8">
-<input autofocus="autofocus" type='text' name='studentid' id='studentid' />
-</form>
+
+        <form id='clockinform' class='form-signin' role='form' action='clockin_process.php' method='POST' accept-charset="UTF-8">
+            <div id="result"></div>
+            <h2>Check In</h2>
+            <input class="form-control" placeholder="ID Number" autofocus="autofocus" name='studentid' id='studentid' />
+
+        </form>
+
+        <script>
+            $("#clockinform").submit(function(event) {
+
+                event.preventDefault();
+
+                 var $form = $( this ),
+                    studentidnumber = $form.find( "input[name='studentid']" ).val();
+                var posting = $.post("clockin_process.php", {studentidjs: studentidnumber});
+
+                posting.done(function(data) {
+                    $("#result").empty().append(data);
+                });
+                $('#clockinform')[0].reset();
+            });
+        </script>
 
 
-      
 
 
 
-   
+
+
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
-  
-    
+
+
 
 
         <div id="global-zeroclipboard-html-bridge" class="global-zeroclipboard-container" style="position: absolute; left: 0px; top: -9999px; width: 15px; height: 15px; z-index: 999999999;" title="" data-original-title="Copy to clipboard">      <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" id="global-zeroclipboard-flash-bridge" width="100%" height="100%">         <param name="movie" value="/assets/flash/ZeroClipboard.swf?noCache=1404206879096">         <param name="allowScriptAccess" value="sameDomain">         <param name="scale" value="exactfit">         <param name="loop" value="false">         <param name="menu" value="false">         <param name="quality" value="best">         <param name="bgcolor" value="#ffffff">         <param name="wmode" value="transparent">         <param name="flashvars" value="trustedOrigins=getbootstrap.com%2C%2F%2Fgetbootstrap.com%2Chttp%3A%2F%2Fgetbootstrap.com">         <embed src="/assets/flash/ZeroClipboard.swf?noCache=1404206879096" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="100%" height="100%" name="global-zeroclipboard-flash-bridge" allowscriptaccess="sameDomain" allowfullscreen="false" type="application/x-shockwave-flash" wmode="transparent" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="trustedOrigins=getbootstrap.com%2C%2F%2Fgetbootstrap.com%2Chttp%3A%2F%2Fgetbootstrap.com" scale="exactfit">                </object></div></body></html>

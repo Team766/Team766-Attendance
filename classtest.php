@@ -30,12 +30,12 @@ if (1==0) {
 
 }
 
-if (1==0) {
+if (1==1) {
     require_once 'includes/db.class.php';
     require_once 'includes/main.class.php';
     $main = new main();
     $db = new db();
-    $db->enrollStudent('Patrick Tam', 769569);
+    $db->enrollStudent('Patrick Tam', 769569, '2014-07-12 13:05:38');
 
 }
 
@@ -182,7 +182,7 @@ if (1==0) {
     $admin = new admin();
     echo var_dump($admin->sortStudentsAndHoursArray_HighScores());
 }
-if (1==1) {
+if (1==0) {
     require_once 'includes/admin.class.php';
     $admin = new admin();
     echo $admin->returnSortPeopleNameDescend();

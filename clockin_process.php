@@ -9,5 +9,8 @@
 *** *** *** *** *** *** */
     require_once 'includes/main.class.php';
     $main = new main();
-    $main->clockInStudent($_GET['studentid']);
+    $main->clockInStudent($_POST['studentidjs']);
+
 ?>
+
+
