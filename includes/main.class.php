@@ -15,12 +15,15 @@
  */
 class main {
 
-    function currentDate() {
+    function currentDateTime() {
         $config_array = include 'config.php';
         $now = new DateTime($config_array['timezone']);
-        return $now->format('Y-m-d H:i:s');
+        return $now;
     }
-
+    function getConfig() {
+        $config_array = include 'config.php';
+        return $config_array;
+    }
     function isStudentEnrolled($student_id_number) {
         require_once 'includes/db.class.php';
         $db = new db();
@@ -49,13 +52,24 @@ class main {
                 ';
             echo $output;
         } else {
-            $db->addAttendEvent($student_id, $this->currentDate());
-            $output = '' . ' 
-            <div class="alert alert-success" role="alert">
-                <strong>Success!</strong> ' . $this->isStudentEnrolled($student_id) . ' Checked In
-            </div>
-                ';
-            echo $output;
+            $db->addAttendEvent($student_id, $this->currentDateTime()->format('Y-m-d H:i:s'));
+            
+            if ($this->clockInOrOut($student_id) == 'out') {
+                $output = '' . ' 
+                <div class="alert alert-success" role="alert">
+                    <strong>Success!</strong> ' . $this->isStudentEnrolled($student_id) . ' Clocked <strong>OUT</strong>
+                </div>
+                    ';
+                echo $output;
+            }
+            if ($this->clockInOrOut($student_id) == 'in') {
+                $output = '' . ' 
+                <div class="alert alert-info" role="alert">
+                    <strong>Success!</strong> ' . $this->isStudentEnrolled($student_id) . ' Clocked <strong>IN</strong>
+                </div>
+                    ';
+                echo $output;
+            }
         }
     }
 
@@ -89,12 +103,40 @@ class main {
         $db = new db();
         $formValidate = $this->validateEnrollment($student_id, $student_name);
         if ($formValidate == 'success') {
-            $db->enrollStudent($student_name, $student_id, $this->currentDate());
+            $db->enrollStudent($student_name, $student_id, $this->currentDateTime()->format('Y-m-d H:i:s'));
             echo '<div class="alert alert-success" role="alert"><strong>Success!</strong> ' . $student_name . ' enrolled</div>';
         }
         else {
             echo $formValidate;
         }
+    }
+    
+    function clockInOrOut ($student_id) {
+        require_once 'includes/db.class.php';
+        $db = new db();
+        
+        $checkInArray = $db->getStudentCheckIns($student_id);
+        
+        $todayCounter = 0;
+        
+        for ($i=0; $i < count($checkInArray); $i++) {
+            $workingDate = new DateTime($checkInArray[$i]['student_attendance'], new DateTimeZone($this->getConfig()['timezone']));
+            $workingDate = $workingDate->format('Y-m-d');
+            $today = $this->currentDateTime()->format('Y-m-d');
+            if ($workingDate == $today) {
+                $todayCounter++;
+            }
+        }
+        if ($todayCounter % 2 == 0) {
+            return 'out';
+        }
+        else if ($todayCounter % 2 == 1) {
+            return 'in';
+        }
+        else {
+            return false;
+        }
+        
     }
 
 }
