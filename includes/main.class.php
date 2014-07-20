@@ -52,7 +52,11 @@ class main {
                 ';
             echo $output;
         } else {
-            $db->addAttendEvent($student_id, $this->currentDateTime()->format('Y-m-d H:i:s'));
+            
+            $date = $this->currentDateTime()->format('Y-m-d H:i:s');
+            $hash = $this->hashDBHours($date);
+             $db->addAttendEvent($student_id, $date, 1, $hash );
+    
             
             if ($this->clockInOrOut($student_id) == 'out') {
                 $output = '' . ' 
@@ -137,6 +141,11 @@ class main {
             return false;
         }
         
+    }
+    function hashDBHours($datetime) {
+        $toHash = strrev($datetime);
+        $finalHash = hash('sha256', $toHash);
+        return $finalHash;
     }
 
 }

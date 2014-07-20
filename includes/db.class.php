@@ -13,15 +13,17 @@
  */
 class db {
 
-    function addAttendEvent($student_id_number, $current_date) {
+    function addAttendEvent($student_id_number, $current_date, $active, $hash) {
 
 
         try {
             $pdo_db = $this->constructPDO();
-            $stmt_to_prepare = "INSERT INTO " . $this->getConfig()['mysql_db_table_prefix'] . "attendance (student_id, student_attendance) VALUES (:student_id_number, :student_date_attended)";
+            $stmt_to_prepare = "INSERT INTO " . $this->getConfig()['mysql_db_table_prefix'] . "attendance (student_id, student_attendance, active, hash) VALUES (:student_id_number, :student_date_attended, :active_bool, :hash_sha256)";
             $stmt = $pdo_db->prepare($stmt_to_prepare);
             $stmt->bindParam(':student_id_number', $student_id_number);
             $stmt->bindParam(':student_date_attended', $current_date);
+            $stmt->bindParam(':active_bool', $active);
+            $stmt->bindParam(':hash_sha256', $hash);
             $stmt->execute();
             $stmt = null;
         } catch (PDOException $e) {
@@ -143,7 +145,7 @@ class db {
     }
 
     function getStudents() {
-         try {
+        try {
             $pdo_db = $this->constructPDO();
             $stmt_to_prepare = 'SELECT * FROM ' . $this->getConfig()['mysql_db_table_prefix'] . 'members';
             $stmt = $pdo_db->prepare($stmt_to_prepare);
@@ -156,7 +158,36 @@ class db {
             die();
         }
     }
-    
+
+    function getAttendance() {
+        try {
+            $pdo_db = $this->constructPDO();
+            $stmt_to_prepare = 'SELECT * FROM ' . $this->getConfig()['mysql_db_table_prefix'] . 'attendance';
+            $stmt = $pdo_db->prepare($stmt_to_prepare);
+            $stmt->execute();
+            $fetch_array = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = null;
+            return $fetch_array;
+        } catch (PDOException $e) {
+            echo "Error!: " . $e->getMessage() . "<br>";
+            die();
+        }
+    }
+    function getHours() {
+        try {
+            $pdo_db = $this->constructPDO();
+            $stmt_to_prepare = 'SELECT * FROM ' . $this->getConfig()['mysql_db_table_prefix'] . 'hours';
+            $stmt = $pdo_db->prepare($stmt_to_prepare);
+            $stmt->execute();
+            $fetch_array = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = null;
+            return $fetch_array;
+        } catch (PDOException $e) {
+            echo "Error!: " . $e->getMessage() . "<br>";
+            die();
+        }
+    }
+
     function constructPDO() {
         $config_array = include 'config.php';
         $dsn = 'mysql:dbname=' . $config_array['mysql_db'] . ';host=' . $config_array['mysql_host'];

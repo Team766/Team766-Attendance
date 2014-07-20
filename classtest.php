@@ -7,7 +7,7 @@
 * @author  pjztam
 * @link    Attendance.team766.com
 *** *** *** *** *** *** */
-if (1==0) {
+if (1==1) {
     
 
 if (1==0) {
@@ -21,11 +21,14 @@ if (1==0) {
 }
 
 if (1==0) {
+    xdebug_break();
     require_once 'includes/db.class.php';
     require_once 'includes/main.class.php';
     $main = new main();
     $db = new db();
-    $db->addAttendEvent('769569', $main->currentDate());
+    $date = $main->currentDateTime()->format('Y-m-d H:i:s');
+    $hash = $main->hashDBHours($date);
+    $db->addAttendEvent('769569', $date, 1, $hash );
     
 
 }
@@ -192,9 +195,95 @@ if (1==0) {
     $main = new main();
     echo $main->currentDateTime()->format('Y-m-d H:i:s');
 }
-if (1==1) {
+if (1==0) {
     require_once 'includes/main.class.php';
     $main = new main();
     echo $main->clockInOrOut('769569');
 }
+if (1==0) {
+    require_once 'includes/main.class.php';
+    $main = new main();
+    echo $main->hashDBHours('2014-07-12 13:05:38');
+}
+if (1 == 0) {
+    require_once 'includes/db.class.php';
+    require_once 'includes/main.class.php';
+    $mysql = new db();
+    $main = new main();
+
+    $fetch_array = $mysql->getAttendance();
+
+
+
+    for ($i = 0; $i < count($fetch_array); $i++) {
+        $id = $fetch_array[$i]['id'];
+        $hash = $main->hashDBHours($fetch_array[$i]['student_attendance']);
+        $id_replace = $i + 1;
+        $active = 1;
+
+        $pdo_db = $mysql->constructPDO();
+        $stmt_to_prepare = "UPDATE " . $mysql->getConfig()['mysql_db_table_prefix'] . "attendance SET hash=:hash_stuff, id=:id_replace, active=:active_stuff WHERE id=:id_stuff";
+        $stmt = $pdo_db->prepare($stmt_to_prepare);
+        
+        $stmt->bindParam(':hash_stuff', $hash);
+        $stmt->bindParam(':id_stuff', $id);
+        $stmt->bindParam(':id_replace', $id_replace);
+        $stmt->bindParam(':active_stuff', $active);
+
+
+
+        $stmt->execute();
+        $stmt = null;
+    }
+
+}
+
+if (1 == 0) {
+    require_once 'includes/db.class.php';
+    require_once 'includes/main.class.php';
+    $mysql = new db();
+    $main = new main();
+
+    $fetch_array = $mysql->getStudents();
+
+
+
+    for ($i = 0; $i < count($fetch_array); $i++) {
+        $id = $fetch_array[$i]['id'];
+        $id_replace = $i + 1;
+        $pdo_db = $mysql->constructPDO();
+        $stmt_to_prepare = "UPDATE " . $mysql->getConfig()['mysql_db_table_prefix'] . "members SET id=:id_replace WHERE id=:id_stuff";
+        $stmt = $pdo_db->prepare($stmt_to_prepare);
+
+        $stmt->bindParam(':id_stuff', $id);
+        $stmt->bindParam(':id_replace', $id_replace);
+
+
+
+
+        $stmt->execute();
+        $stmt = null;
+    }
+
+}
+if (1==1) {
+    require_once 'includes/student.class.php';
+
+    $student = new student('769569');
+    
+    $date_array = $student->createDateArray();
+
+    echo ('normal');
+    var_dump($date_array);
+    
+    for ($i = 0; $i < count($date_array); $i++) {
+        if ($date_array[$i]['active'] == false) {
+            array_splice($date_array, $i, 1);
+        }
+    }
+        
+    echo ('removed');
+    var_dump($date_array);
+}
 ?>
+

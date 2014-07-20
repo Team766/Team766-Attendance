@@ -76,6 +76,7 @@
                         <li><a href="#">Students</a></li>
                         <li><a href="#">Calendar</a></li>
                         <li><a href="#">Reports</a></li>
+                        <li><a href="#">Diagnostics</a></li>
                     </ul>
                     
                 </div>

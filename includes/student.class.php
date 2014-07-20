@@ -33,8 +33,14 @@ class student {
         $config_array = include 'config.php';
         $timezone = new DateTimeZone($config_array['timezone']);
         $date_array = array();
+        $dateArrayIndex = 0;
         for ($i = 0; $i < count($this->allCheckInsArray); $i++) {
-            $date_array[$i] = new DateTime($this->allCheckInsArray[$i]['student_attendance'], $timezone);
+            if ($this->allCheckInsArray[$i]['active'] == 1) {
+             //-$date_array[$i] = new DateTime($this->allCheckInsArray[$i]['student_attendance'], $timezone);
+                $date_array[$dateArrayIndex] = new DateTime($this->allCheckInsArray[$i]['student_attendance'], $timezone);
+                $dateArrayIndex++;
+           }
+            
         }
         return $date_array;
     }
