@@ -1,4 +1,7 @@
+### NetBeans ###
 nbproject/
+
+### Helper Files ###
 example_barcodes/
 sql/unclean_DBs
 htaccess/
