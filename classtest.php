@@ -266,7 +266,7 @@ if (1 == 0) {
     }
 
 }
-if (1==1) {
+if (1==0) {
     require_once 'includes/student.class.php';
 
     $student = new student('769569');
@@ -284,6 +284,103 @@ if (1==1) {
         
     echo ('removed');
     var_dump($date_array);
+}
+if (1==0) {
+    include_once 'includes/student.class.php';
+    $student = new student('769569');
+    $student->getFormattedCheckIns();
+}
+if (1==0) {
+    require_once 'includes/name.class.php';
+    for ($i=0; $i<50; $i++) {
+        echo '<h1>Number ' . $i . '</h1><br>';
+        $name = new name();
+        echo 'Commitment: ' . $name->commitment . '<br>';
+        echo 'Student ID: ' . $name->student_id . '<br>';
+        echo 'Name: ' . $name->student_name . '<br>';
+    }
+}
+if (1==0) {
+    require_once 'includes/name.class.php';
+    for ($i=0; $i<100; $i++) {
+        $name = new name();
+        echo $i . ' ' . $name->student_name . '<br>';
+    }
+    
+}
+if (1==0) {
+    require_once 'includes/name.class.php';
+    $name = new name();
+    echo $name->convertToLowerCase('PATRICK');
+}
+if (1==0) {
+    require_once 'includes/test.class.php';
+    $test = new test();
+    $test->generateDates();
+}
+if (1==0) {
+    require_once 'includes/name.class.php';
+    $name = new name();
+    $name->generateDates();
+}
+if (1==0) {
+    require_once 'includes/name.class.php';
+    $name = new name();
+    $output = '';
+    $notWorked = -300;
+    for ($i=0; $i<1000000; $i++) {
+        $rand = $name->randomNormalDistribution()/(4/$notWorked) + $notWorked/2;
+        $output .= $rand . "\n";
+    }
+    file_put_contents('names/normal1.txt', $output);
+}
+if (1==0) {
+    require_once 'includes/name.class.php';
+    $name = new name();
+    $name->printMeetingsArray();
+    
+}
+if (1==0) {
+    require_once 'includes/name.class.php';
+    $name = new name();
+    var_dump($name);
+    echo '<table><tr><td>Date</td><td>In</td><td>Out</td><td>Length</td></tr>';
+    for ($i=0; $i<count($name->meetingsArray); $i++){
+        $meetingRow = $name->meetingsArray[$i];
+        $meetingLength = $name->meetingLengthArray[$i];
+        echo '<tr><td>'. $meetingRow['in']->format('Y-m-d')  .'</td><td>'. $meetingRow['in']->format('H-i-s') .'</td><td>'. $meetingRow['out']->format('H-i-s')  .'</td><td>'.  $meetingLength['full'] .'</td></tr>';
+    }
+    echo '</table>';
+    $name->generateSyntheticCheckIns();
+}
+
+if (1==0) {
+    require_once 'includes/name.class.php';
+    $name = new name();
+    echo 'Name: ' . $name->student_name . ' Student ID: ' . $name->student_id . ' Committment: ' . $name->commitment;
+    $name->printMeetingsArray();
+    $name->printSyntheticCheckIns();
+   
+}
+if (1==0) {
+    require_once 'includes/name.class.php';
+    for ($i=0; $i<200; $i++) {
+        $name = new name();
+        $name->addSynthCheckInsToDB();
+        $name->addMemberToDB();
+        echo 'Student ' . $i . '<br>';
+    }
+    
+}
+if (1==1) {
+    require_once 'includes/name.class.php';
+    $name = new name();
+    $lengthArray = $name->meetingLengthArray;
+    $sigma = 0;
+    for ($i=0; $i<count($lengthArray); $i++){
+        $sigma += $lengthArray[$i]['full'];
+    }
+    echo $sigma;
 }
 ?>
 

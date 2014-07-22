@@ -169,5 +169,5 @@ class student {
     function getTotalTimeWorked() {
         return $this->timeWorkedSeconds;
     }
-
+    
 }
