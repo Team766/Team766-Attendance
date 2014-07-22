@@ -1,3 +1,7 @@
+[I have not stopped working on this project I just need to go to College Orienation. Can't you just wait 5 days?](https://github.com/pjztam/Team766-Attendance/issues/32)
+=========================================================================================
+
+
 Team766-Attendance
 ==================
 
