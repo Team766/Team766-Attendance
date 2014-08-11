@@ -364,7 +364,7 @@ if (1==0) {
 }
 if (1==0) {
     require_once 'includes/name.class.php';
-    for ($i=0; $i<200; $i++) {
+    for ($i=0; $i<20; $i++) {
         $name = new name();
         $name->addSynthCheckInsToDB();
         $name->addMemberToDB();
@@ -372,7 +372,7 @@ if (1==0) {
     }
     
 }
-if (1==1) {
+if (1==0) {
     require_once 'includes/name.class.php';
     $name = new name();
     $lengthArray = $name->meetingLengthArray;
@@ -381,6 +381,29 @@ if (1==1) {
         $sigma += $lengthArray[$i]['full'];
     }
     echo $sigma;
+}
+if (1==0) {
+    require_once 'includes/db.class.php'; 
+    require_once 'includes/main.class.php';
+    $main = new main();
+    $db = new db();
+    $db->enrollStudent('Patrick Tam', '769569', 'pjztam@gmail.com', $main->currentDateTime()->format('Y-m-d H:i:s'));
+}
+if (1==0) {
+    require_once 'includes/db.class.php'; 
+    require_once 'includes/main.class.php';
+    $main = new main();
+    $db = new db();
+    $valid = $main->validateEmails('pjztam@gmail.com');
+    var_dump($valid);
+}
+if (1==1) {
+    require_once 'includes/db.class.php'; 
+    require_once 'includes/main.class.php';
+    $main = new main();
+    $db = new db();
+    $valid = $main->validateEnrollment('769568', 'Christopher Tam', 'cjztamf@hgmail.com');
+    var_dump($valid);
 }
 ?>
 

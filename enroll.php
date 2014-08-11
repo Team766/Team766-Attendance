@@ -67,6 +67,7 @@
             <h2>Enroll Student</h2>
             <input type='text' class="form-control" placeholder="Name" autofocus="autofocus" name='studentname' id='studentname' />
             <input type='text' class="form-control" placeholder="ID Number" name='studentid' id='studentid' />
+            <input type='text' class="form-control" placeholder="Email Address" name='studentemail' id='studentemail' />
             <button class="btn btn-lg btn-primary btn-block" type="submit">Enroll</button>
         </form>
 
@@ -78,7 +79,8 @@
                  var $form = $( this ),
                     studentid = $form.find( "input[name='studentid']" ).val();
                     studentname = $form.find( "input[name='studentname']" ).val();
-                var posting = $.post("enroll_process.php", {studentidjs: studentid, studentnamejs: studentname});
+                    studentemail = $form.find( "input[name='studentemail']" ).val();
+                var posting = $.post("enroll_process.php", {studentidjs: studentid, studentnamejs: studentname, studentemailjs: studentemail});
 
                 posting.done(function(data) {
                     $("#result").empty().append(data);

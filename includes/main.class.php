@@ -84,13 +84,16 @@ class main {
         }
         return true;
     }
-    function validateEnrollment($student_id, $student_name) {
+    function validateEnrollment($student_id, $student_name, $student_email) {
         if ($student_name == null) {
             return '<div class="alert alert-danger" role="alert"><strong>Warning!</strong> Enter a Name</div>';
         }
         else if ($student_id == null) {
             return '<div class="alert alert-danger" role="alert"><strong>Warning!</strong> Enter a Student ID</div>';
-        }     
+        }  
+        else if ($student_email == null) {
+            return '<div class="alert alert-danger" role="alert"><strong>Warning!</strong> Enter an Email Address</div>';
+        }
         else if ($this->validateStudentIDs($student_id) == false) {
             return '<div class="alert alert-danger" role="alert"><strong>Warning!</strong> That is not a valid Student ID number</div>';
         }
@@ -98,16 +101,20 @@ class main {
             $output = '<div class="alert alert-danger" role="alert"><strong>Warning!</strong> ' . $this->isStudentEnrolled($student_id) . ' is already enrolled';
             return $output;
         }
-        if (!($student_name == null) && !($student_id == null) && !(($this->validateStudentIDs($student_id)) == false) && !($this->isStudentEnrolled($student_id) != false) ){
+        else if ($this->validateEmails($student_email) == false) {
+            $output = '<div class="alert alert-danger" role="alert"><strong>Warning!</strong>Email Invalid';
+            return $output;
+        }
+        if (!($student_name == null) && !($student_id == null) && !($student_email == null) && !(($this->validateStudentIDs($student_id)) == false) && !($this->isStudentEnrolled($student_id) != false) && !($this->validateEmails($student_email) == false) ){
             return 'success';
         }
     }
-    function enrollStudent($student_id, $student_name) {
+    function enrollStudent($student_id, $student_name, $student_email) {
         require_once 'includes/db.class.php';
         $db = new db();
-        $formValidate = $this->validateEnrollment($student_id, $student_name);
+        $formValidate = $this->validateEnrollment($student_id, $student_name, $student_email);
         if ($formValidate == 'success') {
-            $db->enrollStudent($student_name, $student_id, $this->currentDateTime()->format('Y-m-d H:i:s'));
+            $db->enrollStudent($student_name, $student_id, $student_email, $this->currentDateTime()->format('Y-m-d H:i:s'));
             echo '<div class="alert alert-success" role="alert"><strong>Success!</strong> ' . $student_name . ' enrolled</div>';
         }
         else {
@@ -146,6 +153,22 @@ class main {
         $toHash = strrev($datetime);
         $finalHash = hash('sha256', $toHash);
         return $finalHash;
+    }
+    function validateEmails($email) {
+        require_once 'includes/db.class.php';
+        $db = new db();
+        $student_name = $db->checkEmailExist($email);
+        $isEmailValid = filter_var($email, FILTER_VALIDATE_EMAIL);
+        if (!($student_name == false)) {
+            return false;
+        }
+        else if (!$isEmailValid) {
+            return false;
+        }
+        else {
+            return true;
+        }
+           
     }
 
 }

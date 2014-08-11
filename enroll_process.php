@@ -21,9 +21,14 @@ if (isset($_POST['studentidjs'])) {
 else {
     die ('POST Fail');
 }
-
+if (isset($_POST['studentemailjs'])) {
+    $student_email = $_POST['studentemailjs'];
+}
+else {
+    die ('POST Fail');
+}
 
 $main = new main();
-$main->enrollStudent($student_id, $student_name)
+$main->enrollStudent($student_id, $student_name, $student_email);
 
 ?>
