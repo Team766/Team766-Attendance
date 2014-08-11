@@ -111,10 +111,13 @@ class main {
     }
     function enrollStudent($student_id, $student_name, $student_email) {
         require_once 'includes/db.class.php';
+        require_once 'includes/mail.class.php';
         $db = new db();
+        $mail = new mail();
         $formValidate = $this->validateEnrollment($student_id, $student_name, $student_email);
         if ($formValidate == 'success') {
             $db->enrollStudent($student_name, $student_id, $student_email, $this->currentDateTime()->format('Y-m-d H:i:s'));
+            $mail->sendConfirmationEmail($student_name, $student_email);
             echo '<div class="alert alert-success" role="alert"><strong>Success!</strong> ' . $student_name . ' enrolled</div>';
         }
         else {

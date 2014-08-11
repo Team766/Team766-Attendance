@@ -21,11 +21,13 @@ class name {
     var $meetingsArray;
     var $meetingLengthArray;
     var $syntheticCheckIns;
+    var $studentEmail;
 
     function __construct() {
         $this->student_id = $this->generateID();
         $this->commitment = $this->generateCommitment();
         $this->student_name = $this->generateName();
+        $this->studentEmail = $this->generateEmail();
         $this->getMeetingsAndLengths();
         $this->generateSyntheticCheckIns();
     }
@@ -49,6 +51,14 @@ class name {
         return $name;
     }
 
+    function generateEmail() {
+        $nameArray = explode(' ', $this->student_name);
+        $firstName = strtolower($nameArray[0]);
+        $lastName = strtolower($nameArray[1]);
+        $email = $firstName . '.' . $lastName . '@team766.com';
+        return $email;
+    }
+    
     function getFirstName() {
         $file_array = file('names/dist.1000.male.first.txt');
         $nameArray = array();
@@ -259,7 +269,7 @@ class name {
     function addMemberToDB() {
         require_once 'includes/db.class.php';
         $db = new db();
-        $db->enrollStudent($this->student_name, $this->student_id, $this->syntheticCheckIns[0]['synthIn']->format('Y-m-d H:i:s'));
+        $db->enrollStudent($this->student_name, $this->student_id, $this->studentEmail, $this->syntheticCheckIns[0]['synthIn']->format('Y-m-d H:i:s'));
     }
 
 }
