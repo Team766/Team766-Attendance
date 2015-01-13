@@ -164,6 +164,40 @@ class admin {
             </div>';
         return $outputTable;
     }
-    
+    function returnClockedInStudents() {
+        $main = new main();
+        $db = new db();
+        $allStudents = $db->getStudents();
+        $studentsHere = array();
+        foreach ($allStudents as $key=>$row) {
+            if ($main->clockInOrOut($row['student_id']) == "in") {
+                array_push($studentsHere, array('student_id' => $row['student_id'], 'student_name' => $row['student_name']));
+            }
+        }
+        
+        $outputTable = '';
+        $outputTable .= '<div id="clockedInStudentsTitle"><h1 class="page-header">Students Present - Sort Name</h1></div>
+          <div id="clockedInStudents" class="table-responsive">
+            <table class="table table-striped"><thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Student ID</th>
+                </tr>
+              </thead>
+              <tbody>';
+        foreach ($studentsHere as $key=>$row) {
+            $key += 1;
+            $outputTable .= '<tr>
+                    <td>' . $key . '</td>
+                    <td>' . $row['student_name'] . '</td>
+                    <td>' . $row['student_id'] . '</td>
+                </tr>';
+        }
+        $outputTable .= '</tbody>
+            </table>
+            </div>';
+        return $outputTable;
+    }
 }
 ?>

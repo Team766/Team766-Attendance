@@ -1,33 +1,36 @@
 <?php
 
-/*** *** *** *** *** ***
-* @package Team766-Attendance
-* @file    admin_process.php 
-* @start   Jul 1, 2014
-* @author  pjztam
-* @link    attendance.team766.com
-*** *** *** *** *** *** */
+/* * * *** *** *** *** ***
+ * @package Team766-Attendance
+ * @file    admin_process.php 
+ * @start   Jul 1, 2014
+ * @author  pjztam
+ * @link    attendance.team766.com
+ * ** *** *** *** *** *** */
 if (isset($_GET['mod'])) {
     $adminModule = $_GET['mod'];
-}
-else {
+} else {
     die('No admin functions requested');
 }
 
 if ($adminModule == 'sortPeopleHoursDescend') {
-        require_once 'includes/admin.class.php';
-        $admin = new admin();
-       echo $admin->returnSortPeopleHoursDescend();
+    require_once 'includes/admin.class.php';
+    $admin = new admin();
+    echo $admin->returnSortPeopleHoursDescend();
 }
 if ($adminModule == 'sortPeopleIDDescend') {
-        require_once 'includes/admin.class.php';
-        $admin = new admin();
-       echo $admin->returnSortPeopleIDDescend();
+    require_once 'includes/admin.class.php';
+    $admin = new admin();
+    echo $admin->returnSortPeopleIDDescend();
 }
 if ($adminModule == 'sortPeopleNameDescend') {
-        require_once 'includes/admin.class.php';
-        $admin = new admin();
-       echo $admin->returnSortPeopleNameDescend();
+    require_once 'includes/admin.class.php';
+    $admin = new admin();
+    echo $admin->returnSortPeopleNameDescend();
 }
-
+if ($adminModule == 'clockedInStudents') {
+    require_once 'includes/admin.class.php';
+    $admin = new admin();
+    echo $admin->returnClockedInStudents();
+}
 ?>

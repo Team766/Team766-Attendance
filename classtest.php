@@ -405,7 +405,7 @@ if (1==0) {
     $valid = $main->validateEnrollment('769568', 'Christopher Tam', 'cjztamf@hgmail.com');
     var_dump($valid);
 }
-if (1==1) {
+if (1==0) {
     require_once 'includes/mail.class.php'; 
     $mail = new mail();
     $mail->sendConfirmationEmail('Patrick Tam', 'pjztam@gmail.com');

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 20, 2014 at 08:16 AM
+-- Generation Time: Jan 13, 2015 at 11:06 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -59,6 +59,7 @@ CREATE TABLE IF NOT EXISTS `ptolemy_members` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `student_id` int(11) DEFAULT NULL,
   `student_name` varchar(70) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `student_date_registered` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;

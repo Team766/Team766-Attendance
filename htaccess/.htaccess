@@ -1,0 +1,4 @@
+AuthName "Authorization Requested" 
+AuthType Basic 
+AuthUserFile /home/team766-dev/domains/attendance.team766.com/public_html/.htpasswd 
+require valid-user

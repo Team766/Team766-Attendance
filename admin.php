@@ -6,14 +6,7 @@
  * @author  pjztam
  * @link    Attendance.team766.com
  * ** *** *** *** *** *** */
-//    require_once 'includes/admin.class.php';
-//    $admin = new admin();
-//    $all_students = $admin->sortStudentsAndHoursArray_HighScores();
-//    echo '<table>';
-//    for($i=0; $i<count($all_students); $i++) {
-//        echo '<tr><td>' . $all_students[$i]['studentName'] . '</td><td>' . $all_students[$i]['studentID'] . '</td><td>' . $all_students[$i]['studentTime'] . '</td></tr>';
-//    }
-//    echo '</table>';
+
 ?>
 <!DOCTYPE html>
 <html lang="en"><head>
@@ -31,6 +24,8 @@
 
         <!-- Custom styles for this template -->
         <link href="dashboard.css" rel="stylesheet">
+        
+        <link rel="stylesheet" href="dist/fa/css/font-awesome.min.css">
 
         <style id="holderjs-style" type="text/css"></style>
 
@@ -72,7 +67,8 @@
             <div class="row">
                 <div class="col-sm-3 col-md-2 sidebar">
                     <ul class="nav nav-sidebar">
-                        <li><a href="#">Overview</a></li>
+                        <li><a id="showHourList" href="#">Overview</a></li>
+                        <li><a id="showHereList" href="#">Students Present</a></li>
                         <li><a href="#">Students</a></li>
                         <li><a href="#">Calendar</a></li>
                         <li><a href="#">Reports</a></li>
@@ -82,12 +78,18 @@
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     <div id="PageTitle"></div>
-                    <ul class="nav nav-tabs" role="tablist">
+                    
+                    <ul id="navHourList" class="nav nav-tabs" role="tablist">
                         <li class="active"><a id="sortPeopleHoursDescend" href="#">Hours</a></li>
                         <li><a id="sortPeopleIDDescend" href="#">Student ID</a></li>
                         <li><a id="sortPeopleNameDescend" href="#">Name</a></li>
-
                     </ul>
+                    
+                    <ul id="navHereList" class="nav nav-tabs" role="tablist">
+                        <li><a id="clockedInStudents" href="#">Registration Date</a></li>
+                    </ul>
+                    
+                    
                     <div id="result" style="clear:both;"></div>
 
 

@@ -61,7 +61,6 @@
                 </div>
             </div>
         </div>
-        
         <form id='enrollform' class='form-signin' role='form' action='clockin_process.php' method='POST' accept-charset="UTF-8">
             <div id="result"></div>
             <h2>Enroll Student</h2>
