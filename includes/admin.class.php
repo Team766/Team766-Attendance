@@ -34,6 +34,7 @@ class admin
             $student_total_seconds = $working_Student->getTotalTimeWorked();
             $hoursAndStudents[$i] = array('studentID' => $student_id, 'studentName' => $student_name, 'studentTime' => $student_total_seconds);
         }
+        //stuff
         return $hoursAndStudents;
     }
 
