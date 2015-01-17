@@ -1,28 +1,33 @@
 <?php
 
 /*** *** *** *** *** ***
-* @package Team766-Attendance
-* @file    admin.class.php 
-* @start   Jun 29, 2014
-* @author  pjztam
-* @link    Attendance.team766.com
-*** *** *** *** *** *** */
-class admin {
+ * @package Team766-Attendance
+ * @file    admin.class.php
+ * @start   Jun 29, 2014
+ * @author  pjztam
+ * @link    Attendance.team766.com
+ *** *** *** *** *** *** */
+class admin
+{
     var $db;
     var $main;
     var $student_object_array;
-    function __construct() {
+
+    function __construct()
+    {
         require_once 'db.class.php';
-            $this->db = new db();
+        $this->db = new db();
         require_once 'main.class.php';
-            $this->main = new main();
+        $this->main = new main();
         require_once 'student.class.php';
-            $this->student_object_array = $this->constructStudentObjects();
+        $this->student_object_array = $this->constructStudentObjects();
     }
-    function getStudentsAndHoursArray() {
+
+    function getStudentsAndHoursArray()
+    {
         $localCopyStudent = $this->student_object_array;
         $hoursAndStudents = array();
-        for ($i=0; $i<count($localCopyStudent); $i++) {
+        for ($i = 0; $i < count($localCopyStudent); $i++) {
             $working_Student = $localCopyStudent[$i];
             $student_id = $working_Student->getID();
             $student_name = $working_Student->getName();
@@ -31,44 +36,49 @@ class admin {
         }
         return $hoursAndStudents;
     }
-    function sortStudentsAndHoursArray($sortType) {
+
+    function sortStudentsAndHoursArray($sortType)
+    {
         $allStudentsAndTimes = $this->getStudentsAndHoursArray();
         foreach ($allStudentsAndTimes as $key => $row) {
             $student_name[$key] = $row['studentID'];
-            $student_id[$key] = $row['studentName'];  
-            $total_seconds[$key] = $row['studentTime'];        
+            $student_id[$key] = $row['studentName'];
+            $total_seconds[$key] = $row['studentTime'];
         }
         switch ($sortType) {
             case 'sortPeopleHoursDescend':
-                    array_multisort($total_seconds, SORT_DESC, $student_id, SORT_ASC, $student_name, SORT_ASC, $allStudentsAndTimes);
+                array_multisort($total_seconds, SORT_DESC, $student_id, SORT_ASC, $student_name, SORT_ASC, $allStudentsAndTimes);
                 break;
             case 'sortPeopleNameDescend':
-                    array_multisort($student_id, SORT_ASC, $total_seconds, SORT_DESC, $student_name, SORT_ASC, $allStudentsAndTimes);
+                array_multisort($student_id, SORT_ASC, $total_seconds, SORT_DESC, $student_name, SORT_ASC, $allStudentsAndTimes);
                 break;
             case 'sortPeopleIDDescend':
-                    array_multisort($student_name, SORT_ASC, $total_seconds, SORT_DESC, $student_id, SORT_ASC,  $allStudentsAndTimes);
+                array_multisort($student_name, SORT_ASC, $total_seconds, SORT_DESC, $student_id, SORT_ASC, $allStudentsAndTimes);
                 break;
         }
-        
+
         return $allStudentsAndTimes;
     }
-    
-    function constructStudentObjects() {
+
+    function constructStudentObjects()
+    {
         $students_array = $this->db->getStudents();
         $arrayStudentObjects = array();
-        for ($i=0; $i<count($students_array); $i++) {
+        for ($i = 0; $i < count($students_array); $i++) {
             $student_id = $students_array[$i]['student_id'];
             $tempStudent = new student($student_id);
             $arrayStudentObjects[$i] = $tempStudent;
         }
         return $arrayStudentObjects;
- 
+
     }
-    function getHoursFromSeconds($seconds) {
+
+    function getHoursFromSeconds($seconds)
+    {
         $hours = floor($seconds / 3600);
-        $seconds = $seconds - ( 3600 * $hours );
+        $seconds = $seconds - (3600 * $hours);
         $minutes = floor($seconds / 60);
-        $seconds = $seconds - ( 60 * $minutes );
+        $seconds = $seconds - (60 * $minutes);
         if ($minutes < 10) {
             $minutes = '0' . $minutes;
         }
@@ -77,7 +87,9 @@ class admin {
         }
         return '' . $hours . ':' . $minutes . ':' . $seconds;
     }
-    function returnSortPeopleHoursDescend() {
+
+    function returnSortPeopleHoursDescend()
+    {
         $people_array = $this->sortStudentsAndHoursArray('sortPeopleHoursDescend');
         $outputTable = '';
         $outputTable .= '<div id="sortPeopleHoursDescendTitle"><h1 class="page-header">Student List - Sort Hours</h1></div>
@@ -91,7 +103,7 @@ class admin {
                 </tr>
               </thead>
               <tbody>';
-        foreach ($people_array as $key=>$row) {
+        foreach ($people_array as $key => $row) {
             $timeWorkedHours = $this->getHoursFromSeconds($row['studentTime']);
             $key += 1;
             $outputTable .= '<tr>
@@ -106,7 +118,9 @@ class admin {
             </div>';
         return $outputTable;
     }
-     function returnSortPeopleIDDescend() {
+
+    function returnSortPeopleIDDescend()
+    {
         $people_array = $this->sortStudentsAndHoursArray('sortPeopleIDDescend');
         $outputTable = '';
         $outputTable .= '<div id="sortPeopleIDDescendTitle"><h1 class="page-header">Student List - Sort ID</h1></div>
@@ -120,7 +134,7 @@ class admin {
                 </tr>
               </thead>
               <tbody>';
-        foreach ($people_array as $key=>$row) {
+        foreach ($people_array as $key => $row) {
             $timeWorkedHours = $this->getHoursFromSeconds($row['studentTime']);
             $key += 1;
             $outputTable .= '<tr>
@@ -135,7 +149,9 @@ class admin {
             </div>';
         return $outputTable;
     }
-     function returnSortPeopleNameDescend() {
+
+    function returnSortPeopleNameDescend()
+    {
         $people_array = $this->sortStudentsAndHoursArray('sortPeopleNameDescend');
         $outputTable = '';
         $outputTable .= '<div id="sortPeopleNameDescendTitle"><h1 class="page-header">Student List - Sort Name</h1></div>
@@ -149,7 +165,7 @@ class admin {
                 </tr>
               </thead>
               <tbody>';
-        foreach ($people_array as $key=>$row) {
+        foreach ($people_array as $key => $row) {
             $timeWorkedHours = $this->getHoursFromSeconds($row['studentTime']);
             $key += 1;
             $outputTable .= '<tr>
@@ -164,17 +180,19 @@ class admin {
             </div>';
         return $outputTable;
     }
-    function returnClockedInStudents() {
+
+    function returnClockedInStudents()
+    {
         $main = new main();
         $db = new db();
         $allStudents = $db->getStudents();
         $studentsHere = array();
-        foreach ($allStudents as $key=>$row) {
+        foreach ($allStudents as $key => $row) {
             if ($main->clockInOrOut($row['student_id']) == "in") {
                 array_push($studentsHere, array('student_id' => $row['student_id'], 'student_name' => $row['student_name']));
             }
         }
-        
+
         $outputTable = '';
         $outputTable .= '<div id="clockedInStudentsTitle"><h1 class="page-header">Students Present - Sort Name</h1></div>
           <div id="clockedInStudents" class="table-responsive">
@@ -186,7 +204,7 @@ class admin {
                 </tr>
               </thead>
               <tbody>';
-        foreach ($studentsHere as $key=>$row) {
+        foreach ($studentsHere as $key => $row) {
             $key += 1;
             $outputTable .= '<tr>
                     <td>' . $key . '</td>
@@ -200,4 +218,5 @@ class admin {
         return $outputTable;
     }
 }
+
 ?>
