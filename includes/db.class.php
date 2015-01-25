@@ -204,6 +204,38 @@ class db {
             die();
         }
     }
+    
+    function enCacheStudentList($datetime, $name, $data) {
+        try {
+            $pdo_db = $this->constructPDO();
+            $stmt_to_prepare = "INSERT INTO " . $this->getConfig()['mysql_db_table_prefix'] . "cache_studentlist (date, name, data) VALUES (:date, :name, :data)";
+            $stmt = $pdo_db->prepare($stmt_to_prepare);
+            $stmt->bindParam(':date', $datetime);
+            $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':data', $data);
+            $stmt->execute();
+            $stmt = null;
+        } catch (PDOException $e) {
+            echo "Error!: " . $e->getMessage() . "<br>";
+            die();
+        }
+    }
+    
+    function setCacheControl(){
+        try {
+            $pdo_db = $this->constructPDO();
+            $stmt_to_prepare = "INSERT INTO " . $this->getConfig()['mysql_db_table_prefix'] . "cache_studentlist (date, name, data) VALUES (:date, :name, :data)";
+            $stmt = $pdo_db->prepare($stmt_to_prepare);
+            $stmt->bindParam(':date', $datetime);
+            $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':data', $data);
+            $stmt->execute();
+            $stmt = null;
+        } catch (PDOException $e) {
+            echo "Error!: " . $e->getMessage() . "<br>";
+            die();
+        }
+    }
 
     function constructPDO() {
         $config_array = include 'config.php';

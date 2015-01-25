@@ -21,6 +21,7 @@ class admin
         $this->main = new main();
         require_once 'student.class.php';
         $this->student_object_array = $this->constructStudentObjects();
+        $this->cacheToDatabase();
     }
 
     function getStudentsAndHoursArray()
@@ -217,6 +218,13 @@ class admin
             </table>
             </div>';
         return $outputTable;
+    }
+    function cacheToDatabase() {
+        $datetime = $this->main->currentDateTime()->format('Y-m-d H:i:s');
+        $this->db->enCacheStudentList($datetime, 'sortPeopleHoursDescend', $this->returnSortPeopleHoursDescend());
+        $this->db->enCacheStudentList($datetime, 'sortPeopleIDDescend', $this->returnSortPeopleIDDescend());
+        $this->db->enCacheStudentList($datetime, 'sortPeopleNameDescend', $this->returnSortPeopleNameDescend());
+        $this->db->enCacheStudentList($datetime, 'membersInAttendance', $this->returnClockedInStudents());
     }
 }
 

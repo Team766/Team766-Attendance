@@ -410,5 +410,9 @@ if (1==0) {
     $mail = new mail();
     $mail->sendConfirmationEmail('Patrick Tam', 'pjztam@gmail.com');
 }
+if (true) {
+    require_once 'includes/admin.class.php';
+    $admin = new admin();
+}
 ?>
 
