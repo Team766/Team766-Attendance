@@ -220,10 +220,20 @@ class admin
         return $outputTable;
     }
     function cacheToDatabase() {
+        $this->db->clearCache();
+
         $datetime = $this->main->currentDateTime()->format('Y-m-d H:i:s');
+
+        $this->db->modifyCacheControl($datetime, 'sortPeopleHoursDescend');
         $this->db->enCacheStudentList($datetime, 'sortPeopleHoursDescend', $this->returnSortPeopleHoursDescend());
+
+        $this->db->modifyCacheControl($datetime, 'sortPeopleIDDescend');
         $this->db->enCacheStudentList($datetime, 'sortPeopleIDDescend', $this->returnSortPeopleIDDescend());
+
+        $this->db->modifyCacheControl($datetime, 'sortPeopleNameDescend');
         $this->db->enCacheStudentList($datetime, 'sortPeopleNameDescend', $this->returnSortPeopleNameDescend());
+
+        $this->db->modifyCacheControl($datetime, 'membersInAttendance');
         $this->db->enCacheStudentList($datetime, 'membersInAttendance', $this->returnClockedInStudents());
     }
 }

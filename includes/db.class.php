@@ -220,15 +220,72 @@ class db {
             die();
         }
     }
-    
-    function setCacheControl(){
+    function deCacheResource($datetime, $name) {
         try {
             $pdo_db = $this->constructPDO();
-            $stmt_to_prepare = "INSERT INTO " . $this->getConfig()['mysql_db_table_prefix'] . "cache_studentlist (date, name, data) VALUES (:date, :name, :data)";
+            $stmt_to_prepare = 'SELECT * FROM ' . $this->getConfig()['mysql_db_table_prefix'] . 'cache_studentlist WHERE date=:date AND name=:name';
             $stmt = $pdo_db->prepare($stmt_to_prepare);
             $stmt->bindParam(':date', $datetime);
             $stmt->bindParam(':name', $name);
-            $stmt->bindParam(':data', $data);
+            $stmt->execute();
+            $fetch_array = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = null;
+            return $fetch_array[0];
+        } catch (PDOException $e) {
+            echo "Error!: " . $e->getMessage() . "<br>";
+            die();
+        }
+    }
+    function clearCache() {
+        try {
+            $pdo_db = $this->constructPDO();
+            $stmt_to_prepare = 'DELETE FROM ' . $this->getConfig()['mysql_db_table_prefix'] . 'cache_studentlist WHERE 1';
+            $stmt = $pdo_db->prepare($stmt_to_prepare);
+            $stmt->execute();
+            $fetch_array = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = null;
+            return $fetch_array;
+        } catch (PDOException $e) {
+            echo "Error!: " . $e->getMessage() . "<br>";
+            die();
+        }
+    }
+    
+    function setCacheControl($datetime, $cacheName){
+        try {
+            $pdo_db = $this->constructPDO();
+            $stmt_to_prepare = "INSERT INTO " . $this->getConfig()['mysql_db_table_prefix'] . "cachecontrol (datetime, cacheName) VALUES (:datetime, :cacheName)";
+            $stmt = $pdo_db->prepare($stmt_to_prepare);
+            $stmt->bindParam(':datetime', $datetime);
+            $stmt->bindParam(':cacheName', $cacheName);
+            $stmt->execute();
+            $stmt = null;
+        } catch (PDOException $e) {
+            echo "Error!: " . $e->getMessage() . "<br>";
+            die();
+        }
+    }
+    function getCacheControl() {
+        try {
+            $pdo_db = $this->constructPDO();
+            $stmt_to_prepare = 'SELECT * FROM ' . $this->getConfig()['mysql_db_table_prefix'] . 'cachecontrol';
+            $stmt = $pdo_db->prepare($stmt_to_prepare);
+            $stmt->execute();
+            $fetch_array = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = null;
+            return $fetch_array;
+        } catch (PDOException $e) {
+            echo "Error!: " . $e->getMessage() . "<br>";
+            die();
+        }
+    }
+    function modifyCacheControl($datetime, $cacheName) {
+        try {
+            $pdo_db = $this->constructPDO();
+            $stmt_to_prepare = "UPDATE " . $this->getConfig()['mysql_db_table_prefix'] . "cachecontrol SET datetime=:datetime WHERE cacheName=:cacheName";
+            $stmt = $pdo_db->prepare($stmt_to_prepare);
+            $stmt->bindParam(':datetime', $datetime);
+            $stmt->bindParam(':cacheName', $cacheName);
             $stmt->execute();
             $stmt = null;
         } catch (PDOException $e) {

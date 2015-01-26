@@ -410,9 +410,25 @@ if (1==0) {
     $mail = new mail();
     $mail->sendConfirmationEmail('Patrick Tam', 'pjztam@gmail.com');
 }
-if (true) {
+if (false) {
     require_once 'includes/admin.class.php';
     $admin = new admin();
+}
+if (true) {
+    require_once 'includes/admin.class.php';
+    require_once 'includes/db.class.php';
+    $admin = new admin();
+    $db = new db();
+
+    //$db->setCacheControl('2014-1-25 18:40', 'sortPeopleHoursDescend');
+   // $db->setCacheControl('2014-1-25 18:40', 'sortPeopleIDDescend');
+    //$db->setCacheControl('2014-1-25 18:40', 'sortPeopleNameDescend');
+    //$db->setCacheControl('2014-1-25 18:40', 'membersInAttendance');
+}
+if (false) {
+    require_once 'includes/cache.class.php';
+    $cache = new cache();
+    echo $cache->getCachedData()['membersInAttendance'];
 }
 ?>
 
